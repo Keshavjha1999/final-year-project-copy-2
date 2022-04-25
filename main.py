@@ -1,5 +1,3 @@
-from re import L
-from django.shortcuts import render
 from flask import Flask, render_template, redirect, request, flash, url_for, session, send_from_directory
 from flask_cors import CORS
 import os
