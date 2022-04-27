@@ -239,9 +239,14 @@ def recipes():
             module = getSearchResults(recipename)
             dish_names = module.returnTitles()
             prepTime, cookTime, servings = module.returnTitleDetails()
+            leng = len(prepTime)
+            url = 'https://google-image-search1.p.rapidapi.com/v2/'
+            body = (requests.get(url, headers={'X-RapidAPI-Host': 'google-image-search1.p.rapidapi.com',
+                                   'X-RapidAPI-Key': 'b9b819f078msh00513684be592cep108941jsnbab9a046cec7'}, 
+            params={'q': recipename})).json()
             links = module.returnLinks()
             data = {'titles': dish_names, 'prepTime': prepTime,
-                    'cookTime': cookTime, 'servings': servings, 'links': links}
+                    'cookTime': cookTime, 'servings': servings, 'links': links, 'images': body}
             # for links in data['links']:
         else:
             print("didnt work")

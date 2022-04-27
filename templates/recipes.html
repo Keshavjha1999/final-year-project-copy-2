@@ -28,6 +28,23 @@
 				display: grid;
 				grid-template-columns: 20vw 80vw;
 			}
+
+			.float-container {
+				padding: 20px;
+			}
+			
+			.float-child-1 {
+				width: 20%;
+				float: left;
+				padding: 10px;
+			}
+
+			.float-child-2 {
+				width: 80%;
+				float: left;
+				padding: 10px;
+			}
+
 			#LeftSide {
 				height: 100vh;
 				width: 20vw;
@@ -80,7 +97,7 @@
 				color: white;
 			}
 			#DisplayRecipes{
-				width: 70vw;
+				width: 100%;
 				height: 20vh;
 				/*margin-left: 2.5vw;*/
 				color: white;
@@ -104,15 +121,15 @@
 				text-align: left;
 				/*padding-bottom: 10vh;*/
 			}
-			h1{
+			h3{
 				color: var(--yellowish);
 				margin-left: 2vw;
-				width: 30vw;
+				width: 60vw;
 				font-size: 4vh;
 			}
 			@media screen and (max-width: 700px) {
-			  h1 {
-			    font-size: 3vw;
+			h3{
+			    font-size: 1vw;
 			    margin-top: 1vw;
 			  	margin-left: 3vw;
 			  }
@@ -168,29 +185,30 @@
                         <input id="SearchForRecipe" name="recipe_search" placeholder="Search Recipe" type="text">
                             <button hidden="" id="RecipeSearchSubmit" name="sub" type="submit">
                             </button>
-                        </input>
-                    </input>
                 </form>
                 <div id="RecipeScrollContainer">
+					<div class="container">
                     {% for i in range(data['titles']|length) %}
-                    <!-- console.log({{data['links'][i]}}) -->
-                    <a href="{{ url_for('displayRecipe', name= data['titles'][i]  )}}" id="link{{i}}" 
-                    onclick="getdata(this.id)">
-                        <div id="DisplayRecipes{{i}}">
-                            <div id="DisplayRecipes">
-                                <h1>
-                                    {{data['titles'][i][:70]}}
-                                </h1>
-                                <h4 class="alignRight">
-                                    {{data['servings'][i]}}
-                                    <br>
-                                        {{data['cookTime'][i]}}
-                                    </br>
-                                </h4>
-                            </div>
-                        </div>
-                    </a>
-                    {% endfor %}
+                    	<!-- console.log({{data['links'][i]}}) -->
+                   		<a href="{{ url_for('displayRecipe', name= data['titles'][i]  )}}" id="link{{i}}" onclick="getdata(this.id)">
+							<div class="float-container" id="DisplayRecipes">
+								<div class="float-child-1">
+									<img src="{{data['images']['response']['images'][i]['image']['url']}}" width="150" height="150">
+								</div>
+								<div id="DisplayRecipes{{i}}" class="float-child-2">
+									<h3>
+										{{data['titles'][i][:70]}}
+									</h3>
+									<h4 style="padding-left: 30px; padding-top: 30px;">
+										{{data['servings'][i]}}
+										<br>
+										{{data['cookTime'][i]}}
+									</h4>
+								</div>
+							</div>
+                    	</a>
+                    	{% endfor %}
+					</div>
                 </div>
             </div>
         </div>
